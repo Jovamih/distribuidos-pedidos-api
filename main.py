@@ -34,9 +34,9 @@ async def registrar_pedido(response: Pedidos):
     #primero consultamos el stock de la base de datos
     pedido=response.dict()
     #validamos los productos
-    validacion=validate_product(pedido)
+    """validacion=validate_product(pedido)
     if validacion["ok"]==False:
-        return validacion
+        return validacion"""
     #registramos el pedido
     database=Database()
     result=database.registrar_pedido(pedido)
