@@ -11,6 +11,6 @@ pedidos={
 }
 
 if __name__ == "__main__":
-    r=requests.post("http://localhost:8000/pedidos", json=pedidos)
+    r=requests.post("https://microservicio-pedidos-distribu.herokuapp.com/pedidos", json=pedidos)
     if r.status_code==200:
         print(r.json())
