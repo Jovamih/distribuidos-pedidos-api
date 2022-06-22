@@ -1,0 +1,9 @@
+{
+    "cliente": "Juan",
+    "productos":[
+        {"id":2,"nombre":"Manzanas", "cantidad":2,"precio":10},
+        {"id":12,"nombre":"gabs-deepweb", "cantidad":2,"precio":10},
+        {"id":5,"nombre":"GabsPapper", "cantidad":2,"precio":10}
+    ],
+    "fecha":"2020-01-01"
+}

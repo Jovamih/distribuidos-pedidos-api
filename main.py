@@ -17,7 +17,9 @@ class Pedidos(BaseModel):
     productos: List[Productos]
     fecha: str
 
-def validate_product(pedido):
+def validate_product(pedido,use=False):
+    if not use:
+        return {"ok": True, "error": None}
     for producto in pedido["productos"]:
         try:
             r=requests.get(f"http://localhost:8000/stock?id={producto['id']}",timeout=120)
@@ -33,22 +35,23 @@ def validate_product(pedido):
     return {"ok": True, "error": None}
 
 @app.post("/pedidos")
-async def registrar_pedido(response: Pedidos):
+async def registrar_pedido(orden: Pedidos):
     #primero consultamos el stock de la base de datos
-    pedido=response.dict()
+    pedido=orden.dict()
     #validamos los productos
-    validacion=validate_product(pedido)
-    if validacion["ok"]==False:
-       # return validacion
-       pass
+    validacion=validate_product(pedido,use=False)
+    if not validacion['ok']:
+        return validacion
     #registramos el pedido
     database=Database()
     result=database.registrar_pedido(pedido)
     database.close()
-
     #envio los datos al modulo de factura
-    response=requests.post("https://microservicio-facturas.herokuapp.com/api/factura/create", json=pedido,timeout=120)
-    return response.json()
+    print(pedido)
+    response=requests.post("https://microservicio-facturas.herokuapp.com/api/factura/create", json=orden.dict(),timeout=120)
+    if response.status_code==200:
+        return response.json()
+    return {"error": "Error de conexion con la API  de facturacion"}
 
 @app.get("/")
 async def home():
