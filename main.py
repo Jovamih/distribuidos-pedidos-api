@@ -21,13 +21,13 @@ def validate_product(pedido,use=False):
     if not use:
         return {"ok": True, "error": None}
     for producto in pedido["productos"]:
-        try:
-            r=requests.get(f"http://localhost:8000/stock?id={producto['id']}",timeout=120)
+        try: #http://localhost:9001/api/products/stock/{id del producto}
+            r=requests.get(f"http://localhost:9001/api/products/stock/{producto['id']}",timeout=120)
             if r.status_code==200:
                 prod=r.json()
                 if prod["message"] != "true":
                     return {"ok": False, "error": "Producto no encontrado"}
-                stock=prod["cantidad"]
+                stock=prod["stock"]
                 if stock<producto["cantidad"]:
                     return {"ok": False, "error": "No hay stock suficiente"}
         except:
