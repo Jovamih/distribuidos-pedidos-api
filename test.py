@@ -3,11 +3,11 @@ import requests
 pedidos={
     "cliente": "Juan",
     "productos":[
-        {"nombre":"Manzanas", "cantidad":2,"precio":10},
-        {"nombre":"Manzanas", "cantidad":2,"precio":10},
-        {"nombre":"Manzanas", "cantidad":2,"precio":10}
+        {"id":2,"nombre":"Manzanas", "cantidad":2,"precio":10},
+        {"id":12,"nombre":"gabs-deepweb", "cantidad":2,"precio":10},
+        {"id":5,"nombre":"GabsPapper", "cantidad":2,"precio":10}
     ],
-    "fecha":"2020-01-01",
+    "fecha":"2020-01-01"
 }
 
 if __name__ == "__main__":
